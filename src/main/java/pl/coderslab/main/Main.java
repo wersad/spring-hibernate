@@ -1,5 +1,7 @@
 package pl.coderslab.main;
 
+import java.math.BigDecimal;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,7 +19,7 @@ public class Main {
 		
 		System.out.println("\n\nEntityManager was successfully created " + entityManager + "\n\n");
 		
-		Book book = new Book("Tytul nie zaladowany ze skryptu", "Autor nie zaladowany ze skryptu", "Opis nie zaladowany ze skryptu");
+		Book book = new Book("Tytul nie zaladowany ze skryptu", "Autor nie zaladowany ze skryptu", new BigDecimal(0), "Publisher nie załadowany ze skryptu", "Opis nie zaladowany ze skryptu");
 		
 		EntityTransaction transaction = null;
 		

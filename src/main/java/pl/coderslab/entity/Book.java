@@ -1,5 +1,7 @@
 package pl.coderslab.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,14 +17,20 @@ public class Book {
 	private String title;
 
 	private String author;
-
+	
+	private BigDecimal rating;
+	
+	private String publisher;
+	
 	private String description;
 	
 	public Book() {}
 	
-	public Book(String title, String author, String description) {
+	public Book(String title, String author, BigDecimal rating, String publisher, String description) {
 		this.title = title;
 		this.author = author;
+		this.rating = rating;
+		this.publisher = publisher;
 		this.description = description;
 	}
 
@@ -36,6 +44,14 @@ public class Book {
 
 	public String getAuthor() {
 		return this.author;
+	}
+	
+	public BigDecimal getRating() {
+		return this.rating;
+	}
+	
+	public String getPublisher() {
+		return this.publisher;
 	}
 	
 	public String getDescription() {
