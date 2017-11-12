@@ -39,6 +39,15 @@ public class BookController {
 		return "book/index";
 	}
 	
+	@GetMapping(path = "/book/list")
+	public String list(Model model) {
+		
+		List<Book> books = bookDao.findAll();
+		
+		model.addAttribute("books", books);
+		return "book/list";
+	}
+	
 	@GetMapping(path = "/book/find/{id:\\d+}")
 	@ResponseBody
 	public String findById(@PathVariable(name = "id", required = true) long id) {
@@ -56,7 +65,7 @@ public class BookController {
 			Book result = bookDao.save(book);
 			model.addAttribute("book", result);
 			
-			return "book/success";
+			return "redirect:list";
 		} catch(Exception e) {	
 			e.printStackTrace();
 			return "book/failure";

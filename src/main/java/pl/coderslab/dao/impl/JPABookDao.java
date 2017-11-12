@@ -1,7 +1,10 @@
 package pl.coderslab.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
@@ -37,5 +40,11 @@ public class JPABookDao implements BookDao {
 	public void removeById(long id) {
 		Book entity = entityManager.find(Book.class, id);
 		entityManager.remove(entity);
+	}
+
+	@Override
+	public List<Book> findAll() {
+		Query query = entityManager.createQuery("Select b from Book b");
+		return query.getResultList();
 	}
 }
