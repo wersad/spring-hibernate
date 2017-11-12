@@ -3,9 +3,9 @@
   <groupId>pl.coderslab</groupId>
   <artifactId>Spring01hibernate</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
   <name>Spring01hibernate</name>
-  
-  
+    
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -32,5 +32,26 @@
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.8.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+    
+    <build>
+        <finalName>bookstore</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <failOnMissingWebXml/>
+                    <outputDirectory>\coderslab\apache-tomcat-8.5.23\webapps\</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

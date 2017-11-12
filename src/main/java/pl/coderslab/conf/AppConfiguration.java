@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @ComponentScan(basePackages = "pl.coderslab.dao")
+@ComponentScan(basePackages = "pl.coderslab.controller")
 @EnableTransactionManagement
+@EnableWebMvc
 @Configuration
 public class AppConfiguration {
 
