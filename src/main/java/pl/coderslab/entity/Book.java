@@ -2,11 +2,13 @@ package pl.coderslab.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,14 +27,20 @@ public class Book {
 	@Column(scale = 2, precision = 4)
 	private BigDecimal rating;
 	
-	private String publisher;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private Publisher publisher;
 	
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	
 	public Book() {}
 	
-	public Book(String title, String author, BigDecimal rating, String publisher, String description) {
+	public Book(long id, String title, String author, BigDecimal rating, Publisher publisher, String description) {
+		this(title, author, rating, publisher, description);
+		this.id = id;
+	}
+	
+	public Book(String title, String author, BigDecimal rating, Publisher publisher, String description) {
 		this.title = title;
 		this.author = author;
 		this.rating = rating;
@@ -56,7 +64,7 @@ public class Book {
 		return this.rating;
 	}
 	
-	public String getPublisher() {
+	public Publisher getPublisher() {
 		return this.publisher;
 	}
 	

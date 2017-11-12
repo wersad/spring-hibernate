@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Publisher;
 
 public class Main {
 
@@ -19,8 +20,6 @@ public class Main {
 		
 		System.out.println("\n\nEntityManager was successfully created " + entityManager + "\n\n");
 		
-		Book book = new Book("Tytul nie zaladowany ze skryptu", "Autor nie zaladowany ze skryptu", new BigDecimal(0), "Publisher nie załadowany ze skryptu", "Opis nie zaladowany ze skryptu");
-		
 		EntityTransaction transaction = null;
 		
 		try {
@@ -28,12 +27,17 @@ public class Main {
 			transaction = entityManager.getTransaction();
 		
 			transaction.begin();
-		
-			entityManager.persist(book);
+			Publisher publisher = entityManager.merge(new Publisher(1, "Publisher nie zaladowany ze skryptu"));
+			
+			for(int i = 0; i < 10; i++) {
+				Book book = new Book("Tytul nie zaladowany ze skryptu", "Autor nie zaladowany ze skryptu", new BigDecimal(0), publisher, "Opis nie zaladowany ze skryptu");
+				entityManager.persist(book);
+			}
+			
 			entityManager.flush();
 			
 			transaction.commit();
-	
+			
 		} catch(Exception e) {
 			
 			transaction.rollback();
