@@ -1,9 +1,12 @@
 package pl.coderslab.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Person {
@@ -17,6 +20,10 @@ public class Person {
 	private String password;
 	
 	private String email;
+	
+	@ManyToOne
+	@JoinColumn(name = "person_group_id")
+	private PersonGroup personGroup;
 	
 	public Person() {}
 	
@@ -52,5 +59,13 @@ public class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public PersonGroup getPersonGroup() {
+		return this.personGroup;
+	}
+
+	public void setPersonGroup(PersonGroup personGroup) {
+		this.personGroup = personGroup;
 	}
 }
