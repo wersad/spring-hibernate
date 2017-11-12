@@ -1,15 +1,14 @@
 package pl.coderslab.main;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import pl.coderslab.entity.Book;
-import pl.coderslab.entity.Publisher;
 
 public class Main {
 
@@ -29,11 +28,11 @@ public class Main {
 		
 			transaction.begin();
 			
-			Publisher publisher = entityManager.find(Publisher.class, 1l); 
+			Query query = entityManager.createQuery("SELECT b from Book b where b.id between :startId and :endId");
+			query.setParameter("startId", 2l);
+			query.setParameter("endId", 4l);
 			
-			Thread.sleep(10000);
-			
-			List<Book> books = publisher.getBooks();
+			List<Book> books = query.getResultList();
 			
 			System.out.println("Books: " + books);
 			
