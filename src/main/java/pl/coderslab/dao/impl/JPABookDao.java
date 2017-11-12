@@ -17,8 +17,8 @@ public class JPABookDao implements BookDao {
 	private EntityManager entityManager;
 	
 	@Override
-	public void save(Book entity) {
-		entityManager.merge(entity);
+	public Book save(Book entity) {
+		return entityManager.merge(entity);
 	}
 
 	@Override

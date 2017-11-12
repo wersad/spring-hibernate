@@ -71,4 +71,24 @@ public class Book {
 	public String getDescription() {
 		return this.description;
 	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setRating(BigDecimal rating) {
+		this.rating = rating;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import pl.coderslab.covnerter.PersonGroupConverter;
+import pl.coderslab.covnerter.PublisherConverter;
 
 @ComponentScan(basePackages = {"pl.coderslab.dao", "pl.coderslab.controller"})
 @EnableTransactionManagement
@@ -48,10 +49,16 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(personGroupConverter());
+		registry.addConverter(publisherConverter());
 	}
 	
 	@Bean
 	public PersonGroupConverter personGroupConverter() {
 		return new PersonGroupConverter();
+	}
+	
+	@Bean
+	public PublisherConverter publisherConverter() {
+		return new PublisherConverter();
 	}
 }

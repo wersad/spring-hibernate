@@ -1,31 +1,41 @@
 package pl.coderslab.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import pl.coderslab.dao.BookDao;
+import pl.coderslab.dao.PublisherDao;
 import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Publisher;
 
-@RestController
+@Controller
 public class BookController {
 	
 	private final BookDao bookDao;
 	
-	public BookController(@Autowired BookDao bookDao) {
+	private final PublisherDao publisherDao;
+	
+	public BookController(@Autowired BookDao bookDao, @Autowired PublisherDao publisherDao) {
 		this.bookDao = bookDao;
+		this.publisherDao = publisherDao;
 	}
 	
 	@GetMapping(path = "/book")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute(new Book());
 		return "book/index";
 	}
 	
@@ -39,22 +49,17 @@ public class BookController {
 	}
 	
 	@PostMapping(path = "/book/save")
-	@ResponseBody
-	public String save() {
-		
-		Book entity = 
-				new Book("Testowy tytul", "Testowy autor", new BigDecimal(0), new Publisher(1, "Testowy publisher"), "Testowy opis");
+	public String save(@ModelAttribute("book") Book book, Model model) {
 		
 		try {
 			
-			bookDao.save(entity);
-			System.out.println("Saved book has id: " + entity.getId());
+			Book result = bookDao.save(book);
+			model.addAttribute("book", result);
 			
-			
-			return "{\"status\" : true, \"id\" : " + entity.getId() + "}";
+			return "book/success";
 		} catch(Exception e) {	
 			e.printStackTrace();
-			return "{\"status\" : false}";
+			return "book/failure";
 		}
 	}
 	
@@ -87,5 +92,19 @@ public class BookController {
 			e.printStackTrace();
 			return "{\"status\" : false}";
 		}
+	}
+	
+	@ModelAttribute("publishers")
+	public List<Publisher> publishers() {
+		return publisherDao.findAll();
+	}
+	
+	@PostConstruct
+	public void init() throws Exception {
+		
+		publisherDao.save(new Publisher("wydawca 1"));
+		publisherDao.save(new Publisher("wydawca 2"));
+		publisherDao.save(new Publisher("wydawca 3"));
+		publisherDao.save(new Publisher("wydawca 4"));
 	}
 }
