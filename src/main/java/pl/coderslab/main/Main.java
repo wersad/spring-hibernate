@@ -1,6 +1,7 @@
 package pl.coderslab.main;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,14 +28,23 @@ public class Main {
 			transaction = entityManager.getTransaction();
 		
 			transaction.begin();
-			Publisher publisher = entityManager.merge(new Publisher(1, "Publisher nie zaladowany ze skryptu"));
+			
+			Publisher publisher = entityManager.find(Publisher.class, 1l); 
+			
+			Thread.sleep(10000);
+			
+			List<Book> books = publisher.getBooks();
+			
+			System.out.println("Books: " + books);
+			
+			/*Publisher publisher = entityManager.merge(new Publisher(1, "Publisher nie zaladowany ze skryptu"));
 			
 			for(int i = 0; i < 10; i++) {
 				Book book = new Book("Tytul nie zaladowany ze skryptu", "Autor nie zaladowany ze skryptu", new BigDecimal(0), publisher, "Opis nie zaladowany ze skryptu");
 				entityManager.persist(book);
 			}
 			
-			entityManager.flush();
+			entityManager.flush();*/
 			
 			transaction.commit();
 			

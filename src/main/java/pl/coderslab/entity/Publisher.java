@@ -1,9 +1,14 @@
 package pl.coderslab.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +22,9 @@ public class Publisher {
 	private String name;
 	
 	public Publisher() {}
+	
+	@OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<Book> books;
 	
 	public Publisher(long id, String name) {
 		this.id = id;
@@ -33,5 +41,9 @@ public class Publisher {
 
 	public String getName() {
 		return this.name;
+	}
+	
+	public List<Book> getBooks() {
+		return this.books;
 	}
 }
