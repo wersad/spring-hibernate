@@ -14,7 +14,7 @@
             Password: <form:password path="password"/>
         </div>
         <div>
-            Grupa: <form:select path="personGroup.id" items="${groups}" itemValue="id" itemLabel="name"/>
+            Grupa: <form:select path="personGroup" items="${groups}" itemValue="id" itemLabel="name"/>
         </div>
         <div>
             <input type="submit" value="Dodaj osobę">

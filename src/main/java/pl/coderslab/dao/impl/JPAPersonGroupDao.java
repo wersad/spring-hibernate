@@ -30,4 +30,9 @@ public class JPAPersonGroupDao implements PersonGroupDao {
 	public void save(PersonGroup entity) {
 		entityManager.persist(entity);
 	}
+
+	@Override
+	public PersonGroup findById(long id) {
+		return entityManager.find(PersonGroup.class, id);
+	}
 }
